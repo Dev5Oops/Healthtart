@@ -1,6 +1,7 @@
 package com.dev5ops.healthtart.user.service;
 
 import com.dev5ops.healthtart.user.domain.dto.*;
+import com.dev5ops.healthtart.user.domain.vo.request.RegisterGymPerUserRequest;
 import com.dev5ops.healthtart.user.domain.vo.request.RequestInsertUserVO;
 import com.dev5ops.healthtart.user.domain.vo.request.RequestOauth2VO;
 import com.dev5ops.healthtart.user.domain.vo.request.RequestResetPasswordVO;
@@ -27,7 +28,11 @@ public interface UserService extends UserDetailsService {
 
     ResponseMypageDTO getMypageInfo();
 
-    void editMypageInfo(EditMypageDTO editUserDTO);
+    void editPassword(EditPasswordDTO editPasswordDTO);
+
+    void updateUserGym(RegisterGymPerUserRequest registerGymRequest);
+
+    void deleteUserGym(RegisterGymPerUserRequest registerGymRequest);
 
     void resetPassword(RequestResetPasswordVO request);
 }

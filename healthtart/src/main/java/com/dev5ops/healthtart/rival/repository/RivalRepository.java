@@ -1,5 +1,6 @@
 package com.dev5ops.healthtart.rival.repository;
 
+import com.dev5ops.healthtart.rival.domain.dto.RivalDTO;
 import com.dev5ops.healthtart.rival.domain.dto.RivalUserInbodyDTO;
 import com.dev5ops.healthtart.rival.domain.dto.RivalUserInbodyScoreDTO;
 import com.dev5ops.healthtart.rival.domain.entity.Rival;
@@ -14,8 +15,8 @@ import java.util.List;
 public interface RivalRepository extends JpaRepository<Rival, Long> {
 
     // Rival 엔티티에서 user 필드의 userCode 값을 기준으로 데이터를 찾는다는 의미.
-    @Query("SELECT r FROM Rival r JOIN FETCH r.user JOIN FETCH r.rivalUser WHERE r.user.userCode = :userCode")
-    List<Rival> findByUser_UserCode(String userCode);
+    @Query("SELECT new com.dev5ops.healthtart.rival.domain.dto.RivalDTO(r.rivalMatchCode, r.user.userCode, r.rivalUser.userCode, r.createdAt, r.updatedAt) FROM Rival r WHERE r.user.userCode = :userCode")
+    RivalDTO findByUser_UserCode(String userCode);
 
     @Query("SELECT new com.dev5ops.healthtart.rival.domain.dto.RivalUserInbodyScoreDTO(r.rivalMatchCode, ru.userCode, ru.userName, ru.userGender, ru.userHeight, ru.userWeight, ru.userAge, ru.userFlag, i.inbodyScore) " +
             "FROM Rival r " +

@@ -5,7 +5,6 @@ import com.dev5ops.healthtart.common.exception.CommonException;
 import com.dev5ops.healthtart.common.exception.StatusEnum;
 import com.dev5ops.healthtart.rival.domain.dto.RivalDTO;
 import com.dev5ops.healthtart.rival.domain.dto.RivalUserInbodyDTO;
-import com.dev5ops.healthtart.rival.domain.dto.RivalUserInbodyScoreDTO;
 import com.dev5ops.healthtart.rival.domain.entity.Rival;
 import com.dev5ops.healthtart.rival.repository.RivalRepository;
 import com.dev5ops.healthtart.user.domain.CustomUserDetails;
@@ -38,13 +37,9 @@ public class RivalServiceImpl implements RivalService {
 
     @Override
     // 1. 내 라이벌 조회
-    public List<RivalUserInbodyScoreDTO> findRivalList(){
+    public RivalDTO findRivalMatch(){
         String userCode = getUserCode();
-
-        // 현재 로그인한 유저가 라이벌로 설정한 사람들 + 그 사람들 정보를 담은 코드 (키, 몸무게, 나이 등등)
-        List<RivalUserInbodyScoreDTO> rivalUserInbodyScoreList = rivalRepository.findRivalUsersInbodyScoreByUserCode(userCode);
-
-        return rivalUserInbodyScoreList;
+        return rivalRepository.findByUser_UserCode(userCode);
     }
 
     @Override

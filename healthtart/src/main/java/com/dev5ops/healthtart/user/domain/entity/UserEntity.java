@@ -70,7 +70,7 @@ public class UserEntity {
     private LocalDateTime updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "gym_code", nullable = true)
+    @JoinColumn(name = "gym_code")
     private Gym gym;
 
     public void removeRequest(UserEntity user) {

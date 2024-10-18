@@ -2,7 +2,7 @@ package com.dev5ops.healthtart.rival.controller;
 
 import com.dev5ops.healthtart.rival.domain.dto.RivalDTO;
 import com.dev5ops.healthtart.rival.domain.dto.RivalUserInbodyDTO;
-import com.dev5ops.healthtart.rival.domain.dto.RivalUserInbodyScoreDTO;
+import com.dev5ops.healthtart.rival.domain.vo.response.ResponseRivalVO;
 import com.dev5ops.healthtart.rival.service.RivalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +21,17 @@ public class RivalController {
         this.rivalService = rivalService;
     }
 
-    // 1. 모든 라이벌 조회하는 기능
     @GetMapping
-    public ResponseEntity<List<RivalUserInbodyScoreDTO>> findRivalList(){
-        // VO로 변경해야 한다면 변경하기 DTO <-> VO -> 데이터는 둘이 똑같이 해서 하기. 원칙?
-        List<RivalUserInbodyScoreDTO> rivalList = rivalService.findRivalList();
+    public ResponseEntity<ResponseRivalVO> findRivalMatch(){
+        RivalDTO rival = rivalService.findRivalMatch();
 
-        return ResponseEntity.ok().body(rivalList);
+        ResponseRivalVO responseRivalVO = new ResponseRivalVO(
+                rival.getRivalMatchCode(),
+                rival.getUserCode(),
+                rival.getRivalUserCode()
+        );
+
+        return ResponseEntity.ok().body(responseRivalVO);
     }
 
     // 2. 선택한 라이벌 조회하는 기능

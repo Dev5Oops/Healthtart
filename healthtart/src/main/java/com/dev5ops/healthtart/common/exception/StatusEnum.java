@@ -17,6 +17,7 @@ public enum StatusEnum {
     DAY_OF_INBODY_DUPLICATE(400, HttpStatus.BAD_REQUEST, "이미 등록한 인바디 정보입니다."),
     ROUTINES_CREATED_ERROR(400, HttpStatus.BAD_REQUEST, "운동 루틴 생성 중 오류가 발생했습니다."),
     EQUIPMENT_ALREADY_REGISTERED(400, HttpStatus.BAD_REQUEST, "이 헬스장에 이미 등록된 운동기구입니다."),
+    INVALID_PASSWORD(400, HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
 
     RESTRICTED(403, HttpStatus.UNAUTHORIZED, "권한이 없습니다."),
 
@@ -27,6 +28,7 @@ public enum StatusEnum {
     DAY_NOT_FOUND(404, HttpStatus.NOT_FOUND,"DB에 해당 날짜에 운동한 기록이 존재하지 않습니다." ),
     EQUIPMENT_PER_GYM_NOT_FOUND(404, HttpStatus.NOT_FOUND, "DB에 해당 헬스장 별 운동기구 데이터가 존재하지 않습니다."),
     INBODY_NOT_FOUND(404, HttpStatus.NOT_FOUND, "인바디 데이터가 존재하지 않습니다."),
+    RIVAL_NOT_FOUND(404, HttpStatus.NOT_FOUND, "라이벌 데이터가 존재하지 않습니다."),
     RECORD_NOT_FOUND(404, HttpStatus.NOT_FOUND, "DB에 해당 운동기록이 존재하지 않습니다."),
 
     INTERNAL_SERVER_ERROR(500, HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다"),

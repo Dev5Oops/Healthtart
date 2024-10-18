@@ -6,9 +6,11 @@ import com.dev5ops.healthtart.user.domain.dto.*;
 import com.dev5ops.healthtart.security.JwtUtil;
 import com.dev5ops.healthtart.user.domain.vo.EmailVerificationVO;
 import com.dev5ops.healthtart.user.domain.vo.ResponseEmailMessageVO;
-import com.dev5ops.healthtart.user.domain.vo.request.RequestEditMypageVO;
+import com.dev5ops.healthtart.user.domain.vo.request.RegisterGymPerUserRequest;
+import com.dev5ops.healthtart.user.domain.vo.request.RequestEditPasswordVO;
 import com.dev5ops.healthtart.user.domain.vo.request.RequestInsertUserVO;
 import com.dev5ops.healthtart.user.domain.vo.request.RequestOauth2VO;
+import com.dev5ops.healthtart.user.domain.vo.response.ResponseEditPasswordVO;
 import com.dev5ops.healthtart.user.domain.vo.request.RequestResetPasswordVO;
 import com.dev5ops.healthtart.user.domain.vo.response.ResponseFindUserVO;
 import com.dev5ops.healthtart.user.domain.vo.response.ResponseInsertUserVO;
@@ -131,14 +133,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/edit/mypage")
-    public ResponseEntity<String> editMypageInfo(@RequestBody RequestEditMypageVO request){
+    @PatchMapping("/mypage/edit/password")
+    public ResponseEntity<ResponseEditPasswordVO> editPassword(@RequestBody RequestEditPasswordVO request) {
+        EditPasswordDTO editPasswordDTO = modelMapper.map(request, EditPasswordDTO.class);
 
-        EditMypageDTO editMypageDTO = modelMapper.map(request, EditMypageDTO.class);
+        userService.editPassword(editPasswordDTO);
 
-        userService.editMypageInfo(editMypageDTO);
+        ResponseEditPasswordVO response = new ResponseEditPasswordVO("비밀번호가 성공적으로 변경되었습니다.");
 
-        return ResponseEntity.status(HttpStatus.OK).body("잘 수정 됐어용");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     // 회원 전체 조회
@@ -205,6 +208,25 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body("잘 저장했습니다");
     }
 
+    @PostMapping("/register-gym")
+    public ResponseEntity<String> registerGym(@RequestBody RegisterGymPerUserRequest registerGymRequest) {
+        try {
+            userService.updateUserGym(registerGymRequest);
+            return ResponseEntity.ok("헬스장 등록이 완료되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("헬스장 등록에 실패했습니다.");
+        }
+    }
+
+    @PostMapping("/remove-gym")
+    public ResponseEntity<String> removeGym(@RequestBody RegisterGymPerUserRequest registerGymRequest) {
+        try {
+            userService.deleteUserGym(registerGymRequest);
+            return ResponseEntity.ok("헬스장이 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("헬스장 삭제에 실패했습니다.");
+        }
+    }
     @PostMapping("/password")
     public ResponseEntity<String> resetPassword(@RequestBody RequestResetPasswordVO request) {
 

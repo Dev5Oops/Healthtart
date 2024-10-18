@@ -2,14 +2,13 @@ package com.dev5ops.healthtart.rival.service;
 
 import com.dev5ops.healthtart.rival.domain.dto.RivalDTO;
 import com.dev5ops.healthtart.rival.domain.dto.RivalUserInbodyDTO;
-import com.dev5ops.healthtart.rival.domain.dto.RivalUserInbodyScoreDTO;
 
 import java.util.List;
 
 public interface RivalService {
 
     // 1. 내 라이벌 조회
-    List<RivalUserInbodyScoreDTO> findRivalList();
+    RivalDTO findRivalMatch();
 
     // 2. 선택한 라이벌 조회 -> 내꺼하고 상대꺼 2개 보여줘야함. -> 결국 유저 정보가 필요하구나? user를 infra로 가져와야한다.
     List<RivalUserInbodyDTO> findRival(String rivalUserCode);

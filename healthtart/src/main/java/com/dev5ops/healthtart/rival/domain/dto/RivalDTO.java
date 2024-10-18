@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @ToString
 public class RivalDTO {
 
-    private Integer rivalMatchCode;
+    private Long rivalMatchCode;
 
     private String userCode;
 
